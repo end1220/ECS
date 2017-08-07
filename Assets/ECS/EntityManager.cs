@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ecs
 {
-	using ComponentList = List<IComponent>;
+	using ComponentList = List<Component>;
 
 	public class EntityManager
 	{
@@ -15,7 +15,7 @@ namespace ecs
 
 		private Dictionary<Type, ComponentList> typeConponnets = new Dictionary<Type, ComponentList>();
 
-		private List<IEntitySystem> systems = new List<IEntitySystem>();
+		private List<EntitySystem> systems = new List<EntitySystem>();
 
 		private int nextEntityId = 0;
 
@@ -29,8 +29,20 @@ namespace ecs
 		}
 
 
-		public T AddComponent<T>(int entityId) where T :  IComponent, new()
+		public Entity FindEntity(int id)
 		{
+			Entity ent = null;
+			entities.TryGetValue(id, out ent);
+			return ent;
+		}
+
+
+		public T AddComponent<T>(int entityId) where T :  Component, new()
+		{
+			Entity ent = FindEntity(entityId);
+			if (ent == null)
+				return null;
+
 			T com = new T();
 
 			return com;

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace ecs
 {
 
-	public abstract class IEntitySystem
+	public abstract class EntitySystem
 	{
 		private EntityManager entityManager;
 
@@ -15,7 +15,7 @@ namespace ecs
 		private Dictionary<int, Entity> entities = new Dictionary<int, Entity>();
 
 
-		public IEntitySystem(Type[] types)
+		public EntitySystem(Type[] types)
 		{
 			componentTypes = types;
 		}

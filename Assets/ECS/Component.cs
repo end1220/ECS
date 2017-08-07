@@ -3,7 +3,7 @@
 namespace ecs
 {
 
-	public abstract class IComponent
+	public abstract class Component
 	{
 		public Entity entity;
 	}
