@@ -8,7 +8,7 @@ namespace ecs
 
 	public abstract class EntitySystem
 	{
-		private BitArray componentBits = new BitArray(256, false);
+		private BitArray componentBits = new BitArray(32, false);
 
 		private MutableArray<Entity> entityArray = new MutableArray<Entity>();
 
@@ -41,7 +41,7 @@ namespace ecs
 		public void OnAddComponent(Entity entity, Component component)
 		{
 			BitArray bits = entityManager.GetEntityComponentBitArray(entity.Id);
-			if (bits == componentBits)
+			if (bits.Equals(componentBits))
 			{
 				entityArray[entity.Id] = entity;
 			}
@@ -51,7 +51,7 @@ namespace ecs
 		public void OnRemoveComponent(Entity entity, Component component)
 		{
 			BitArray bits = entityManager.GetEntityComponentBitArray(entity.Id);
-			if (bits == componentBits)
+			if (bits.Equals(componentBits))
 			{
 				entityArray[entity.Id] = null;
 			}

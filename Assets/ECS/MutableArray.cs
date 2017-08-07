@@ -69,11 +69,11 @@ namespace ecs
 			if (index >= size)
 				Grow(index * 2);
 
-			if (o == null && data[index] != null)
+			if (o == null && data[index] != null && index == count - 1)
 			{
 				count--;
 			}
-			else if (o != null && data[index] == null)
+			else if (o != null && data[index] == null && index == count)
 			{
 				count++;
 			}
@@ -104,7 +104,6 @@ namespace ecs
 			return false;
 		}
 
-
 		public T RemoveLast()
 		{
 			if (!IsEmpty())
@@ -116,16 +115,6 @@ namespace ecs
 			}
 
 			return null;
-		}
-
-
-		public void DeleteData()
-		{
-			for (int i = 0; i < size; i++)
-			{
-				data[i] = null;
-			}
-			count = 0;
 		}
 
 		private void Grow()

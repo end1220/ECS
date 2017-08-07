@@ -32,7 +32,7 @@ namespace ecs
 		{
 			Entity ent = new Entity(nextEntityId++, this);
 			entityArray.Add(ent);
-			BitArray bits = new BitArray(256, false);
+			BitArray bits = new BitArray(32, false);
 			entityComponentBitsArray.Add(bits);
 			return ent;
 		}
@@ -78,13 +78,27 @@ namespace ecs
 
 			int comTypeId = ComponentTypeManager.GetTypeId(component.GetType());
 
-			ComponentArray entComArray = entityComponentsArray[entityId];
+			ComponentArray entComArray = null;
+			if (entityId < entityComponentsArray.Count)
+				entComArray = entityComponentsArray[entityId];
+			else
+			{
+				entComArray = new ComponentArray();
+				entityComponentsArray[entityId] = entComArray;
+			}
 			Component com = entComArray[comTypeId];
 			if (com == null)
 			{
 				com = component;
 				entComArray[comTypeId] = com;
-				ComponentArray typeComArray = typeConponnetsArray[comTypeId];
+				ComponentArray typeComArray = null;
+				if (comTypeId < typeConponnetsArray.Count)
+					typeComArray = typeConponnetsArray[comTypeId];
+				else
+				{
+					typeComArray = new ComponentArray();
+					typeConponnetsArray[comTypeId] = typeComArray;
+				}
 				typeComArray.Add(com);
 
 				BitArray bits = entityComponentBitsArray[entityId];
