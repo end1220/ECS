@@ -14,10 +14,10 @@ public class MyTransformSystem : EntitySystem
 	}
 
 
-	public override void OnUpdate()
+	public override void OnUpdate(MutableArray<Entity> entityArray)
 	{
-		if (EntityArray.Count > 0)
-			UnityEngine.Debug.Log("MyTransformSystem");
+		//if (EntityArray.Count > 0)
+		//	UnityEngine.Debug.Log("MyTransformSystem");
 	}
 
 }

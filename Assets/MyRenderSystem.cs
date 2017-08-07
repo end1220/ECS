@@ -14,10 +14,10 @@ public class MyRenderSystem : EntitySystem
 	}
 
 
-	public override void OnUpdate()
+	public override void OnUpdate(MutableArray<Entity> entityArray)
 	{
-		if (EntityArray.Count > 0)
-			UnityEngine.Debug.Log("MyRenderSystem");
+		//if (EntityArray.Count > 0)
+		//	UnityEngine.Debug.Log("MyRenderSystem");
 	}
 
 }

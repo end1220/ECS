@@ -86,6 +86,7 @@ namespace ecs
 				entComArray = new ComponentArray();
 				entityComponentsArray[entityId] = entComArray;
 			}
+
 			Component com = entComArray[comTypeId];
 			if (com == null)
 			{
@@ -105,6 +106,10 @@ namespace ecs
 				bits[comTypeId] = true;
 
 				systemManager.OnAddComponent(ent, com);
+			}
+			else
+			{
+				throw new Exception("EntityManager.AddComponent: repeated component " + component.GetType());
 			}
 		}
 

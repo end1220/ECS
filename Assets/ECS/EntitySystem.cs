@@ -31,11 +31,11 @@ namespace ecs
 
 		public void Update()
 		{
-			OnUpdate();
+			OnUpdate(entityArray);
 		}
 
 
-		public abstract void OnUpdate();
+		public abstract void OnUpdate(MutableArray<Entity> entityArray);
 
 
 		public void OnAddComponent(Entity entity, Component component)
@@ -43,7 +43,10 @@ namespace ecs
 			BitSet bits = entityManager.GetEntityComponentBitSet(entity.Id);
 			if (bits.Contains(componentBits))
 			{
-				entityArray[entity.Id] = entity;
+				if (entityArray.Contains(entity))
+					return;
+
+				entityArray.Add(entity);
 			}
 		}
 
@@ -53,8 +56,14 @@ namespace ecs
 			BitSet bits = entityManager.GetEntityComponentBitSet(entity.Id);
 			if (bits.Contains(componentBits))
 			{
-				entityArray[entity.Id] = null;
+				entityArray.Remove(entity);
 			}
+		}
+
+
+		public int GetEntityCount()
+		{
+			return entityArray.Count;
 		}
 
 	}

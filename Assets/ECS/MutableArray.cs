@@ -69,11 +69,11 @@ namespace ecs
 			if (index >= size)
 				Grow(index * 2);
 
-			if (o == null && data[index] != null && index == count - 1)
+			if (o == null && data[index] != null)
 			{
 				count--;
 			}
-			else if (o != null && data[index] == null && index == count)
+			else if (o != null && data[index] == null)
 			{
 				count++;
 			}
@@ -93,20 +93,35 @@ namespace ecs
 
 		public bool Remove(T o)
 		{
+			if (o == null)
+				return false;
+
 			for (int i = 0; i < count; i++)
 			{
 				if (o == data[i])
 				{
-					data[i] = null;
+					Remove(i);
 					return true;
 				}
 			}
 			return false;
 		}
 
+		public T Remove(int index)
+		{
+			if (count == 0)
+				return null;
+
+			T obj = data[index];
+			data[index] = data[count - 1];
+			data[count - 1] = null;
+			count--;
+			return (T)obj;
+		}
+
 		public T RemoveLast()
 		{
-			if (!IsEmpty())
+			if (count > 0)
 			{
 				T obj = data[count - 1];
 				data[count - 1] = null;

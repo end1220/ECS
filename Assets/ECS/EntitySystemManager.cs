@@ -53,6 +53,11 @@ namespace ecs
 			return systemList.Count;
 		}
 
+		public EntitySystem GetSystemByIndex(int index)
+		{
+			return systemList[index];
+		}
+
 	}
 
 }
