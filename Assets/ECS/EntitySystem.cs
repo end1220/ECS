@@ -12,6 +12,8 @@ namespace ecs
 
 		private MutableArray<Entity> entityArray = new MutableArray<Entity>();
 
+		public MutableArray<Entity> EntityArray { get { return entityArray; } }
+
 		private EntityManager entityManager;
 
 

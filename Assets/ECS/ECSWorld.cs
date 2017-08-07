@@ -14,6 +14,7 @@ namespace ecs
 		{
 			systemManager = new EntitySystemManager();
 			entityManager = new EntityManager(systemManager);
+			systemManager.Init(entityManager);
 		}
 
 

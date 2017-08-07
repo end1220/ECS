@@ -16,7 +16,8 @@ public class MyRenderSystem : EntitySystem
 
 	public override void OnUpdate()
 	{
-		UnityEngine.Debug.Log("MyRenderSystem");
+		if (EntityArray.Count > 0)
+			UnityEngine.Debug.Log("MyRenderSystem");
 	}
 
 }

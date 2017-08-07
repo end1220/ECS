@@ -48,6 +48,10 @@ namespace ecs
 			}
 		}
 
+		public int GetSystemCount()
+		{
+			return systemList.Count;
+		}
 
 	}
 

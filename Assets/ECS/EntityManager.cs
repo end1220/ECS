@@ -181,6 +181,12 @@ namespace ecs
 			return entityComponentBitsArray[entityId];
 		}
 
+
+		public int GetEntityCount()
+		{
+			return entityArray.Count;
+		}
+
 	}
 
 }
