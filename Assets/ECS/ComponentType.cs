@@ -6,40 +6,44 @@ using System.Collections.Generic;
 namespace ecs
 {
 
-	public class ComponentType
-	{
-		public int index;
-
-		public Type type;
-
-		public ComponentType(int id, Type type)
-		{
-			this.index = id;
-			this.type = type;
-		}
-	}
-
-
 	public static class ComponentTypeManager
 	{
-		//private static List<ComponentType> componentTypes = new List<ComponentType>();
+		class ComponentType
+		{
+			public int id;
+
+			public Type type;
+
+			public ComponentType(int id, Type type)
+			{
+				this.id = id;
+				this.type = type;
+			}
+		}
+
 
 		private static Dictionary<Type, ComponentType> componentTypeDic = new Dictionary<Type, ComponentType>();
 
-		private static int nextIndex = 0;
+		private static int nextTypeId = 0;
 
 
-		public static int GetComponentIndex(Component component)
+		public static int GetTypeId<T>() where T : Component
+		{
+			Type type = typeof(T);
+			return GetTypeId(type);
+		}
+
+		public static int GetTypeId(Type type)
 		{
 			ComponentType comType = null;
-			Type type = component.GetType();
 			if (!componentTypeDic.TryGetValue(type, out comType))
 			{
-				comType = new ComponentType(nextIndex++, type);
+				comType = new ComponentType(nextTypeId++, type);
 				componentTypeDic.Add(type, comType);
 			}
-			return comType.index;
+			return comType.id;
 		}
+
 	}
 
 }

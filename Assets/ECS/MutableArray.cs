@@ -73,6 +73,23 @@ namespace ecs
 			return (T)data[index];
 		}
 
+		public void Set(int index, T o)
+		{
+			if (index >= size)
+				Grow(index * 2);
+
+			if (o == null && data[index] != null)
+			{
+				count--;
+			}
+			else if (o != null && data[index] == null)
+			{
+				count++;
+			}
+
+			data[index] = o;
+		}
+
 		public int GetCapacity()
 		{
 			return size;
@@ -83,10 +100,6 @@ namespace ecs
 			return count == 0;
 		}
 
-		public int GetCount()
-		{
-			return count;
-		}
 
 		public bool Remove(T o)
 		{
@@ -146,24 +159,6 @@ namespace ecs
 			return null;
 		}
 
-
-		public bool Set(int index, T o)
-		{
-			if (index >= size) 
-				Grow(index * 2);
-
-			if (o == null && data[index] != null)
-			{
-				count--;
-			}
-			else if (o != null && data[index] == null)
-			{
-				count++;
-			}
-
-			data[index] = o;
-			return true;
-		}
 
 		public void DeleteData()
 		{
