@@ -22,32 +22,11 @@ namespace ecs
 			Init(capacity);
 		}
 
-		public MutableArray<T> GetGapless()
-		{
-			MutableArray<T> bag = new MutableArray<T>(this.count);
-			for (int i = 0; i < this.size; i++)
-			{
-				if (this.data[i] != null)
-				{
-					bag.Add(data[i]);
-				}
-			}
-			return bag;
-		}
-
 		public void Add(T o)
 		{
 			if (size == count)
 				Grow();
 			data[count++] = o;
-		}
-
-		public void AddRange(MutableArray<T> bag)
-		{
-			for (int i = 0; i < bag.size; i++)
-			{
-				Add(bag.data[i]);
-			}
 		}
 
 		public void Clear()
@@ -68,12 +47,24 @@ namespace ecs
 			return false;
 		}
 
-		public T Get(int index)
+		public T this[int index]
 		{
-			return (T)data[index];
+			get
+			{
+				return Get(index);
+			}
+			set
+			{
+				Set(index, value);
+			}
 		}
 
-		public void Set(int index, T o)
+		private T Get(int index)
+		{
+			return data[index];
+		}
+
+		private void Set(int index, T o)
 		{
 			if (index >= size)
 				Grow(index * 2);
@@ -100,49 +91,17 @@ namespace ecs
 			return count == 0;
 		}
 
-
 		public bool Remove(T o)
 		{
 			for (int i = 0; i < count; i++)
 			{
 				if (o == data[i])
 				{
-					RemoveAt(i);
+					data[i] = null;
 					return true;
 				}
 			}
-
 			return false;
-		}
-
-		public T RemoveAt(int index)
-		{
-			if (count == 0)
-				return null;
-
-			T obj = data[index];
-			data[index] = data[count - 1];
-			data[count - 1] = null;
-			count--;
-			return (T)obj;
-		}
-
-		public bool RemoveRange(MutableArray<T> bag)
-		{
-			bool mod = false;
-
-			for (int i = 0; i < bag.count; i++)
-				for (int j = 0; j < count; j++)
-					if (bag.data[i] == data[j])
-					{
-						RemoveAt(j);
-						j--; // ?
-						mod = true;
-						break;
-					}
-
-			return mod;
-
 		}
 
 

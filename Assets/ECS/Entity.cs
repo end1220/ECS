@@ -5,13 +5,15 @@ namespace ecs
 
 	public class Entity
 	{
-		public int Id;
+		private int id;
+		public int Id { get { return id; } }
 
 		public EntityManager entityManager;
 
 
-		public Entity(EntityManager entityManager)
+		public Entity(int id, EntityManager entityManager)
 		{
+			this.id = id;
 			this.entityManager = entityManager;
 		}
 
@@ -36,7 +38,7 @@ namespace ecs
 
 		public bool HasComponent<T>()
 		{
-			return entityManager.GetComponent(Id, typeof(T)) != null;
+			return entityManager.HasComponent(Id, typeof(T));
 		}
 
 	}
