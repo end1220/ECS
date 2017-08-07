@@ -17,7 +17,7 @@ public class MyTransformSystem : EntitySystem
 	public override void OnUpdate()
 	{
 		if (EntityArray.Count > 0)
-			UnityEngine.Debug.Log("MyRenderSystem");
+			UnityEngine.Debug.Log("MyTransformSystem");
 	}
 
 }

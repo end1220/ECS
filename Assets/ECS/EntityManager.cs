@@ -11,7 +11,7 @@ namespace ecs
 	{
 		private MutableArray<Entity> entityArray = new MutableArray<Entity>();  // index is entity id
 
-		private MutableArray<BitArray> entityComponentBitsArray = new MutableArray<BitArray>();
+		private MutableArray<BitSet> entityComponentBitsArray = new MutableArray<BitSet>();
 
 		private MutableArray<ComponentArray> entityComponentsArray = new MutableArray<ComponentArray>(); // index is entity id
 
@@ -32,7 +32,7 @@ namespace ecs
 		{
 			Entity ent = new Entity(nextEntityId++, this);
 			entityArray.Add(ent);
-			BitArray bits = new BitArray(32, false);
+			BitSet bits = new BitSet();
 			entityComponentBitsArray.Add(bits);
 			return ent;
 		}
@@ -101,7 +101,7 @@ namespace ecs
 				}
 				typeComArray.Add(com);
 
-				BitArray bits = entityComponentBitsArray[entityId];
+				BitSet bits = entityComponentBitsArray[entityId];
 				bits[comTypeId] = true;
 
 				systemManager.OnAddComponent(ent, com);
@@ -133,7 +133,7 @@ namespace ecs
 
 				systemManager.OnRemoveComponent(ent, com);
 
-				BitArray bits = entityComponentBitsArray[entityId];
+				BitSet bits = entityComponentBitsArray[entityId];
 				bits[comTypeId] = false;
 			}
 		}
@@ -175,7 +175,7 @@ namespace ecs
 		public bool HasComponent<T>(int entityId)
 		{
 			int comTypeId = ComponentTypeManager.GetTypeId(typeof(T));
-			BitArray bits = entityComponentBitsArray[entityId];
+			BitSet bits = entityComponentBitsArray[entityId];
 			bool has = bits[comTypeId];
 			return has;
 		}
@@ -184,13 +184,13 @@ namespace ecs
 		public bool HasComponent(int entityId, Type type)
 		{
 			int comTypeId = ComponentTypeManager.GetTypeId(type);
-			BitArray bits = entityComponentBitsArray[entityId];
+			BitSet bits = entityComponentBitsArray[entityId];
 			bool has = bits[comTypeId];
 			return has;
 		}
 
 
-		public BitArray GetEntityComponentBitArray(int entityId)
+		public BitSet GetEntityComponentBitSet(int entityId)
 		{
 			return entityComponentBitsArray[entityId];
 		}
