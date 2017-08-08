@@ -31,11 +31,12 @@ namespace ecs
 
 		public void Update()
 		{
-			OnUpdate(entityArray);
+			for (int i = 0; i < entityArray.Count; ++i)
+				ProcessEntity(entityArray[i]);
 		}
 
 
-		public abstract void OnUpdate(MutableArray<Entity> entityArray);
+		public abstract void ProcessEntity(Entity entity);
 
 
 		public void OnAddComponent(Entity entity, Component component)
@@ -43,6 +44,7 @@ namespace ecs
 			BitSet bits = entityManager.GetEntityComponentBitSet(entity.Id);
 			if (bits.Contains(componentBits))
 			{
+				// too slow
 				if (entityArray.Contains(entity))
 					return;
 
@@ -52,6 +54,18 @@ namespace ecs
 
 
 		public void OnRemoveComponent(Entity entity, Component component)
+		{
+			BitSet bits = entityManager.GetEntityComponentBitSet(entity.Id);
+			if (bits.Contains(componentBits))
+			{
+				int comTypeId = ComponentTypeManager.GetTypeId(component.GetType());
+				if (componentBits[comTypeId])
+					entityArray.Remove(entity);
+			}
+		}
+
+
+		public void OnRemoveEntity(Entity entity)
 		{
 			BitSet bits = entityManager.GetEntityComponentBitSet(entity.Id);
 			if (bits.Contains(componentBits))

@@ -14,10 +14,17 @@ public class MyRenderSystem : EntitySystem
 	}
 
 
-	public override void OnUpdate(MutableArray<Entity> entityArray)
+	public override void ProcessEntity(Entity entity)
 	{
-		//if (EntityArray.Count > 0)
-		//	UnityEngine.Debug.Log("MyRenderSystem");
+		var tran = entity.GetComponent<MyTransform>();
+		var render = entity.GetComponent<MyRender>();
+		Draw(render, tran);
+	}
+
+
+	private void Draw(MyRender render, MyTransform transform)
+	{
+		transform.position -= UnityEngine.Vector3.one;
 	}
 
 }

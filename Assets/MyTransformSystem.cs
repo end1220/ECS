@@ -14,10 +14,11 @@ public class MyTransformSystem : EntitySystem
 	}
 
 
-	public override void OnUpdate(MutableArray<Entity> entityArray)
+	public override void ProcessEntity(Entity entity)
 	{
-		//if (EntityArray.Count > 0)
-		//	UnityEngine.Debug.Log("MyTransformSystem");
+		var tran = entity.GetComponent<MyTransform>();
+		tran.position += UnityEngine.Vector3.one;
+		tran.scale = UnityEngine.Vector3.one * 0.5f;
 	}
 
 }

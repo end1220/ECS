@@ -11,11 +11,11 @@ namespace ecs
 	{
 		private MutableArray<Entity> entityArray = new MutableArray<Entity>();  // index is entity id
 
-		private MutableArray<BitSet> entityComponentBitsArray = new MutableArray<BitSet>();
+		private MutableArray<BitSet> componentBitsOfEntity = new MutableArray<BitSet>();
 
 		private MutableArray<ComponentArray> entityComponentsArray = new MutableArray<ComponentArray>(); // index is entity id
 
-		private MutableArray<ComponentArray> typeConponnetsArray = new MutableArray<ComponentArray>();   // index is component type index
+		//private MutableArray<ComponentArray> typeConponnetsArray = new MutableArray<ComponentArray>();   // index is component type index
 
 		private int nextEntityId = 0;
 
@@ -30,10 +30,11 @@ namespace ecs
 
 		public Entity AddEntity()
 		{
-			Entity ent = new Entity(nextEntityId++, this);
-			entityArray.Add(ent);
+			int entityId = nextEntityId++;
+			Entity ent = new Entity(entityId, this);
+			entityArray[entityId] = ent;
 			BitSet bits = new BitSet();
-			entityComponentBitsArray.Add(bits);
+			componentBitsOfEntity[entityId] = bits;
 			return ent;
 		}
 
@@ -43,8 +44,9 @@ namespace ecs
 			Entity ent = FindEntity(entityId);
 			if (ent != null)
 			{
+				systemManager.OnRemoveEntity(ent);
 				entityArray[ent.Id] = null;
-				entityComponentBitsArray[ent.Id] = null;
+				componentBitsOfEntity[ent.Id] = null;
 				RemoveAllComponents(ent.Id);
 			}
 		}
@@ -92,7 +94,7 @@ namespace ecs
 			{
 				com = component;
 				entComArray[comTypeId] = com;
-				ComponentArray typeComArray = null;
+				/*ComponentArray typeComArray = null;
 				if (comTypeId < typeConponnetsArray.Count)
 					typeComArray = typeConponnetsArray[comTypeId];
 				else
@@ -100,9 +102,9 @@ namespace ecs
 					typeComArray = new ComponentArray();
 					typeConponnetsArray[comTypeId] = typeComArray;
 				}
-				typeComArray.Add(com);
+				typeComArray.Add(com);*/
 
-				BitSet bits = entityComponentBitsArray[entityId];
+				BitSet bits = componentBitsOfEntity[entityId];
 				bits[comTypeId] = true;
 
 				systemManager.OnAddComponent(ent, com);
@@ -133,12 +135,12 @@ namespace ecs
 			if (com != null)
 			{
 				entComArray[comTypeId] = null;
-				ComponentArray typeComArray = typeConponnetsArray[comTypeId];
-				typeComArray.Remove(com);
+				/*ComponentArray typeComArray = typeConponnetsArray[comTypeId];
+				typeComArray.Remove(com);*/
 
 				systemManager.OnRemoveComponent(ent, com);
 
-				BitSet bits = entityComponentBitsArray[entityId];
+				BitSet bits = componentBitsOfEntity[entityId];
 				bits[comTypeId] = false;
 			}
 		}
@@ -180,7 +182,7 @@ namespace ecs
 		public bool HasComponent<T>(int entityId)
 		{
 			int comTypeId = ComponentTypeManager.GetTypeId(typeof(T));
-			BitSet bits = entityComponentBitsArray[entityId];
+			BitSet bits = componentBitsOfEntity[entityId];
 			bool has = bits[comTypeId];
 			return has;
 		}
@@ -189,7 +191,7 @@ namespace ecs
 		public bool HasComponent(int entityId, Type type)
 		{
 			int comTypeId = ComponentTypeManager.GetTypeId(type);
-			BitSet bits = entityComponentBitsArray[entityId];
+			BitSet bits = componentBitsOfEntity[entityId];
 			bool has = bits[comTypeId];
 			return has;
 		}
@@ -197,7 +199,7 @@ namespace ecs
 
 		public BitSet GetEntityComponentBitSet(int entityId)
 		{
-			return entityComponentBitsArray[entityId];
+			return componentBitsOfEntity[entityId];
 		}
 
 

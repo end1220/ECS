@@ -3,7 +3,7 @@
 namespace ecs
 {
 
-	public class ECSWorld
+	public class World
 	{
 		public EntityManager entityManager { get; private set; }
 

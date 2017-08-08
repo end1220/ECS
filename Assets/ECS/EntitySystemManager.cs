@@ -48,6 +48,16 @@ namespace ecs
 			}
 		}
 
+
+		public void OnRemoveEntity(Entity entity)
+		{
+			foreach (EntitySystem sys in systemList)
+			{
+				sys.OnRemoveEntity(entity);
+			}
+		}
+
+
 		public int GetSystemCount()
 		{
 			return systemList.Count;
