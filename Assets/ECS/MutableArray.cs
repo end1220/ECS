@@ -91,6 +91,7 @@ namespace ecs
 			return count == 0;
 		}
 
+		// too slow
 		public bool Remove(T o)
 		{
 			if (o == null)

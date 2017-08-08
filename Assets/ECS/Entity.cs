@@ -8,7 +8,10 @@ namespace ecs
 		private int id;
 		public int Id { get { return id; } }
 
-		public EntityManager entityManager;
+		private BitSet systemBits = new BitSet();
+		public BitSet SystemBits { get { return systemBits; } }
+
+		private EntityManager entityManager;
 
 
 		public Entity(int id, EntityManager entityManager)

@@ -44,11 +44,12 @@ namespace ecs
 			BitSet bits = entityManager.GetEntityComponentBitSet(entity.Id);
 			if (bits.Contains(componentBits))
 			{
-				// too slow
-				if (entityArray.Contains(entity))
-					return;
-
-				entityArray.Add(entity);
+				int sysTypeId = EntitySystemTypeManager.GetTypeId(GetType());
+				if (!entity.SystemBits[sysTypeId])
+				{
+					entity.SystemBits[sysTypeId] = true;
+					entityArray.Add(entity);
+				}
 			}
 		}
 

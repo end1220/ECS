@@ -23,6 +23,15 @@ namespace ecs
 		}
 
 
+		public void Clear()
+		{
+			for (int i = 0; i < data.Length; ++i)
+			{
+				data[i] = 0;
+			}
+		}
+
+
 		public bool Contains(BitSet other)
 		{
 			if (other.data.Length > data.Length)

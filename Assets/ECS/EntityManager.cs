@@ -13,7 +13,9 @@ namespace ecs
 
 		private MutableArray<BitSet> componentBitsOfEntity = new MutableArray<BitSet>();
 
-		private MutableArray<ComponentArray> entityComponentsArray = new MutableArray<ComponentArray>(); // index is entity id
+		private MutableArray<BitSet> systemBitsOfEntity = new MutableArray<BitSet>();
+
+		private MutableArray<ComponentArray> componentsArrayOfEntity = new MutableArray<ComponentArray>(); // index is entity id
 
 		//private MutableArray<ComponentArray> typeConponnetsArray = new MutableArray<ComponentArray>();   // index is component type index
 
@@ -81,12 +83,12 @@ namespace ecs
 			int comTypeId = ComponentTypeManager.GetTypeId(component.GetType());
 
 			ComponentArray entComArray = null;
-			if (entityId < entityComponentsArray.Count)
-				entComArray = entityComponentsArray[entityId];
+			if (entityId < componentsArrayOfEntity.Count)
+				entComArray = componentsArrayOfEntity[entityId];
 			else
 			{
 				entComArray = new ComponentArray();
-				entityComponentsArray[entityId] = entComArray;
+				componentsArrayOfEntity[entityId] = entComArray;
 			}
 
 			Component com = entComArray[comTypeId];
@@ -130,7 +132,7 @@ namespace ecs
 
 			int comTypeId = ComponentTypeManager.GetTypeId(type);
 
-			ComponentArray entComArray = entityComponentsArray[entityId];
+			ComponentArray entComArray = componentsArrayOfEntity[entityId];
 			Component com = entComArray[comTypeId];
 			if (com != null)
 			{
@@ -148,7 +150,7 @@ namespace ecs
 
 		public void RemoveAllComponents(int entityId)
 		{
-			ComponentArray entComArray = entityComponentsArray[entityId];
+			ComponentArray entComArray = componentsArrayOfEntity[entityId];
 			for (int i = 0; i < entComArray.GetCapacity(); ++i)
 			{
 				Component com = entComArray[i];
@@ -172,7 +174,7 @@ namespace ecs
 
 			int comTypeId = ComponentTypeManager.GetTypeId(type);
 
-			ComponentArray entComArray = entityComponentsArray[entityId];
+			ComponentArray entComArray = componentsArrayOfEntity[entityId];
 			Component com = entComArray[comTypeId];
 
 			return com;
