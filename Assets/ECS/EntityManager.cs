@@ -21,10 +21,10 @@ namespace ecs
 
 		private int nextEntityId = 0;
 
-		private EntitySystemManager systemManager;
+		private SystemManager systemManager;
 
 
-		public EntityManager(EntitySystemManager mgr)
+		public EntityManager(SystemManager mgr)
 		{
 			systemManager = mgr;
 		}

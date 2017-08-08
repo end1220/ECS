@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace ecs
 {
 
-	public class EntitySystemManager
+	public class SystemManager
 	{
 
 		private List<EntitySystem> systemList;

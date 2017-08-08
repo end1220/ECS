@@ -74,7 +74,7 @@ public class Example : MonoBehaviour
 	private List<int> testEntityIds = new List<int>();
 	private void TestInit()
 	{
-		for (int i = 0; i < 10000; ++i)
+		for (int i = 0; i < 5000; ++i)
 		{
 			var entity = world.entityManager.AddEntity();
 			testEntityIds.Add(entity.Id);
@@ -90,11 +90,11 @@ public class Example : MonoBehaviour
 	bool add = false;
 	private void TestUpdate()
 	{
-		if (add)
-			RandAdd();
-		else
-			RandDel();
-		add = !add;
+// 		if (add)
+// 			RandAdd();
+// 		else
+// 			RandDel();
+// 		add = !add;
 	}
 
 	private void RandAdd()

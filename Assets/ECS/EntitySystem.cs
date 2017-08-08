@@ -1,6 +1,5 @@
 ﻿
 using System;
-using System.Collections;
 
 
 namespace ecs
@@ -44,7 +43,7 @@ namespace ecs
 			BitSet bits = entityManager.GetEntityComponentBitSet(entity.Id);
 			if (bits.Contains(componentBits))
 			{
-				int sysTypeId = EntitySystemTypeManager.GetTypeId(GetType());
+				int sysTypeId = SystemTypeManager.GetTypeId(GetType());
 				if (!entity.SystemBits[sysTypeId])
 				{
 					entity.SystemBits[sysTypeId] = true;

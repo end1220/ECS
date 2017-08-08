@@ -6,15 +6,15 @@ using System.Collections.Generic;
 namespace ecs
 {
 
-	public static class EntitySystemTypeManager
+	public static class SystemTypeManager
 	{
-		class EntitySystemType
+		class SystemType
 		{
 			public int id;
 
 			public Type type;
 
-			public EntitySystemType(int id, Type type)
+			public SystemType(int id, Type type)
 			{
 				this.id = id;
 				this.type = type;
@@ -22,7 +22,7 @@ namespace ecs
 		}
 
 
-		private static Dictionary<Type, EntitySystemType> systemTypeDic = new Dictionary<Type, EntitySystemType>();
+		private static Dictionary<Type, SystemType> systemTypeDic = new Dictionary<Type, SystemType>();
 
 		private static int nextTypeId = 0;
 
@@ -35,10 +35,10 @@ namespace ecs
 
 		public static int GetTypeId(Type type)
 		{
-			EntitySystemType sysType = null;
+			SystemType sysType = null;
 			if (!systemTypeDic.TryGetValue(type, out sysType))
 			{
-				sysType = new EntitySystemType(nextTypeId++, type);
+				sysType = new SystemType(nextTypeId++, type);
 				systemTypeDic.Add(type, sysType);
 			}
 			return sysType.id;

@@ -7,12 +7,12 @@ namespace ecs
 	{
 		public EntityManager entityManager { get; private set; }
 
-		public EntitySystemManager systemManager { get; private set; }
+		public SystemManager systemManager { get; private set; }
 
 
 		public void Init()
 		{
-			systemManager = new EntitySystemManager();
+			systemManager = new SystemManager();
 			entityManager = new EntityManager(systemManager);
 			systemManager.Init(entityManager);
 		}
