@@ -101,14 +101,14 @@ namespace ecs
 			{
 				if (o == data[i])
 				{
-					Remove(i);
+					RemoveAt(i);
 					return true;
 				}
 			}
 			return false;
 		}
 
-		public T Remove(int index)
+		public T RemoveAt(int index)
 		{
 			if (count == 0)
 				return null;

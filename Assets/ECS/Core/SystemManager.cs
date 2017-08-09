@@ -18,6 +18,16 @@ namespace ecs
 			{
 				new MyTransformSystem(entityManager, typeof(MyTransform)),
 				new MyRenderSystem(entityManager, typeof(MyTransform), typeof(MyRender)),
+
+				new TestSys1(entityManager, typeof(MyTransform)),
+				new TestSys2(entityManager, typeof(MyTransform)),
+				new TestSys3(entityManager, typeof(MyTransform)),
+				new TestSys4(entityManager, typeof(MyTransform)),
+				new TestSys5(entityManager, typeof(MyTransform)),
+				new TestSys6(entityManager, typeof(MyTransform)),
+				new TestSys7(entityManager, typeof(MyTransform)),
+				new TestSys8(entityManager, typeof(MyTransform)),
+				new TestSys9(entityManager, typeof(MyTransform)),
 			};
 		}
 

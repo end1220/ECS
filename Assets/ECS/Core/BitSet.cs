@@ -75,7 +75,7 @@ namespace ecs
 		{
 			if (index >= data.Length * sizeof(int))
 			{
-				int length = index / sizeof(int) + (index % sizeof(int) == 0 ? 0 : 1);
+				int length = (index + 1) / sizeof(int) + ((index + 1) % sizeof(int) == 0 ? 0 : 1);
 				Grow(length);
 			}
 			int i = index / sizeof(int);
