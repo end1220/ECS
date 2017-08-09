@@ -16,15 +16,20 @@ namespace ecs
 		private EntityManager entityManager;
 
 
-		public EntitySystem(EntityManager entityManager, params Type[] types)
+		public EntitySystem(params Type[] types)
 		{
-			this.entityManager = entityManager;
-
 			for (int i = 0; i < types.Length; ++i)
 			{
 				int comTypeId = ComponentTypeManager.GetTypeId(types[i]);
 				componentBits[comTypeId] = true;
 			}
+		}
+
+
+		public void Init(EntityManager entityManager)
+		{
+			this.entityManager = entityManager;
+			OnInit();
 		}
 
 
@@ -34,8 +39,9 @@ namespace ecs
 				ProcessEntity(entityArray[i]);
 		}
 
+		protected virtual void OnInit() { }
 
-		public abstract void ProcessEntity(Entity entity);
+		protected abstract void ProcessEntity(Entity entity);
 
 
 		public void OnAddComponent(Entity entity, Component component)

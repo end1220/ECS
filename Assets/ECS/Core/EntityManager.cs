@@ -24,7 +24,7 @@ namespace ecs
 		private SystemManager systemManager;
 
 
-		public EntityManager(SystemManager mgr)
+		public void Init(SystemManager mgr)
 		{
 			systemManager = mgr;
 		}
@@ -113,7 +113,7 @@ namespace ecs
 			}
 			else
 			{
-				throw new Exception("EntityManager.AddComponent: repeated component " + component.GetType());
+				//throw new Exception("EntityManager.AddComponent: repeated component " + component.GetType());
 			}
 		}
 

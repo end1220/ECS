@@ -7,14 +7,14 @@ using ecs;
 public class MyTransformSystem : EntitySystem
 {
 
-	public MyTransformSystem(EntityManager entityManager, params Type[] types) :
-		base(entityManager, types)
+	public MyTransformSystem(params Type[] types) :
+		base(types)
 	{
 
 	}
 
 
-	public override void ProcessEntity(Entity entity)
+	protected override void ProcessEntity(Entity entity)
 	{
 		var tran = entity.GetComponent<MyTransform>();
 		tran.position += UnityEngine.Vector3.one;

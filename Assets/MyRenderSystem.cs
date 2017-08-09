@@ -7,14 +7,14 @@ using ecs;
 public class MyRenderSystem : EntitySystem
 {
 
-	public MyRenderSystem(EntityManager entityManager, params Type[] types) :
-		base(entityManager, types)
+	public MyRenderSystem(params Type[] types) :
+		base(types)
 	{
 
 	}
 
 
-	public override void ProcessEntity(Entity entity)
+	protected override void ProcessEntity(Entity entity)
 	{
 		var tran = entity.GetComponent<MyTransform>();
 		var render = entity.GetComponent<MyRender>();

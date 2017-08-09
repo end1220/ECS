@@ -13,8 +13,9 @@ namespace ecs
 		public void Init()
 		{
 			systemManager = new SystemManager();
-			entityManager = new EntityManager(systemManager);
-			systemManager.Init(entityManager);
+			entityManager = new EntityManager();
+			entityManager.Init(systemManager);
+			systemManager.Init(entityManager, SystemList.systemList);
 		}
 
 

@@ -8,27 +8,16 @@ namespace ecs
 
 	public class SystemManager
 	{
-
 		private List<EntitySystem> systemList;
 
 
-		public void Init(EntityManager entityManager)
+		public void Init(EntityManager entityManager, List<EntitySystem> systemList)
 		{
-			systemList = new List<EntitySystem>()
+			this.systemList = systemList;
+			foreach (var sys in systemList)
 			{
-				new MyTransformSystem(entityManager, typeof(MyTransform)),
-				new MyRenderSystem(entityManager, typeof(MyTransform), typeof(MyRender)),
-
-				new TestSys1(entityManager, typeof(MyTransform)),
-				new TestSys2(entityManager, typeof(MyTransform)),
-				new TestSys3(entityManager, typeof(MyTransform)),
-				new TestSys4(entityManager, typeof(MyTransform)),
-				new TestSys5(entityManager, typeof(MyTransform)),
-				new TestSys6(entityManager, typeof(MyTransform)),
-				new TestSys7(entityManager, typeof(MyTransform)),
-				new TestSys8(entityManager, typeof(MyTransform)),
-				new TestSys9(entityManager, typeof(MyTransform)),
-			};
+				sys.Init(entityManager);
+			}
 		}
 
 

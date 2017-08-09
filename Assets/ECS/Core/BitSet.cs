@@ -7,6 +7,8 @@ namespace ecs
 	{
 		private int[] data;
 
+		private const int IntBitSize = 32;
+
 
 		public BitSet()
 		{
@@ -16,7 +18,7 @@ namespace ecs
 
 		public BitSet(int bitSize)
 		{
-			int length = bitSize / sizeof(int) + (bitSize % sizeof(int) == 0 ? 0 : 1);
+			int length = bitSize / IntBitSize + (bitSize % IntBitSize == 0 ? 0 : 1);
 			if (length < 1)
 				length = 1;
 			data = new int[length];
@@ -60,26 +62,26 @@ namespace ecs
 		
 		private void Set(int index, bool value)
 		{
-			if (index >= data.Length * sizeof(int))
+			if (index >= data.Length * IntBitSize)
 			{
-				int length = index / sizeof(int) + (index % sizeof(int) == 0 ? 0 : 1);
+				int length = (index + 1) / IntBitSize + ((index + 1) % IntBitSize == 0 ? 0 : 1);
 				Grow(length);
 			}
-			int i = index / sizeof(int);
-			int left = index % sizeof(int);
+			int i = index / IntBitSize;
+			int left = index % IntBitSize;
 			data[i] |= (value ? 1 : 0) << left;
 		}
 
 
 		private bool Get(int index)
 		{
-			if (index >= data.Length * sizeof(int))
+			if (index >= data.Length * IntBitSize)
 			{
-				int length = (index + 1) / sizeof(int) + ((index + 1) % sizeof(int) == 0 ? 0 : 1);
+				int length = (index + 1) / IntBitSize + ((index + 1) % IntBitSize == 0 ? 0 : 1);
 				Grow(length);
 			}
-			int i = index / sizeof(int);
-			int left = index % sizeof(int);
+			int i = index / IntBitSize;
+			int left = index % IntBitSize;
 			return (data[i] >> left & 1) > 0;
 		}
 

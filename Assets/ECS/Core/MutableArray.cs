@@ -61,6 +61,8 @@ namespace ecs
 
 		private T Get(int index)
 		{
+			if (index >= size)
+				Grow(index * 2);
 			return data[index];
 		}
 
